@@ -14,13 +14,22 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from drf_spectacular.utils import extend_schema
 
 from .models import StoreProfile
-from .serializers import StoreProfileSerializer, LoginSerializer
-
+from .serializers import (
+    StoreProfileSerializer,
+    LoginSerializer,
+    RegisterSerializer,
+)
 
 User = get_user_model()
 
 
-
+# REGISTRATION
+@extend_schema(
+    request=RegisterSerializer,
+    responses={201: dict},
+    summary="Регистрация",
+    description="Создание нового пользователя и профиля магазина."
+)
 @api_view(["POST"])
 def register(request):
     first_name = request.data.get("first_name", "").strip()
@@ -102,6 +111,7 @@ def register(request):
     )
 
 
+# LOGIN
 @extend_schema(
     request=LoginSerializer,
     responses={200: dict},
@@ -149,6 +159,7 @@ def login(request):
     })
 
 
+# STORE PROFILE
 class StoreProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -202,7 +213,7 @@ class StoreProfileView(APIView):
         return self.patch(request)
 
 
-
+# CHANGE PASSWORD
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
 
