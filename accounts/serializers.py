@@ -1,3 +1,4 @@
+
 from rest_framework import serializers
 from .models import StoreProfile
 
@@ -24,12 +25,12 @@ class LoginSerializer(serializers.Serializer):
         write_only=True,
         trim_whitespace=False
     )
-    from rest_framework import serializers
 
-    class RegisterSerializer(serializers.Serializer):
-        first_name = serializers.CharField(max_length=150)
-        last_name = serializers.CharField(max_length=150)
-        username = serializers.CharField(max_length=150)
-        email = serializers.EmailField()
-        password = serializers.CharField(write_only=True)
-        password2 = serializers.CharField(write_only=True)
+
+class RegisterSerializer(serializers.Serializer):
+    first_name = serializers.CharField(max_length=150)
+    last_name = serializers.CharField(max_length=150)
+    username = serializers.CharField(max_length=150)
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
+    password2 = serializers.CharField(write_only=True)
